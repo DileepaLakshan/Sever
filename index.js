@@ -20,17 +20,32 @@ app.get('/users', (req, res) =>{
     .catch(err => res.json(err))
 })
 
-app.post('/users', async (req, res) => {
+app.post('/user/signUp', async (req, res) => {
+
+    const existingUser = await UserModel.findOne({username: req.body.name });
+    const existingEmail = await UserModel.findOne({username: req.body.email });
+    if (existingUser) {
+        console.log('Username is already taken');
+        return res.status(400).send({ error: 'Username is already taken' });
+      }
+
+    if(existingEmail) {
+        return res.status(400).send({ error: 'email is already taken' });
+      }
+      
+
 
     console.log(req.body.name);
     console.log(req.body.password);
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const name = req.body.name;
+    const email = req.body.email;
     const Password = hashedPassword;
 
     UserModel.create({
         userName: name,
+        userEmail: email,
         password: Password
     }).then(result => res.json(result)).catch(err => res.json(err))
     
