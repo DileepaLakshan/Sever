@@ -22,8 +22,8 @@ app.get('/users', (req, res) =>{
 
 app.post('/user/signUp', async (req, res) => {
 
-    const existingUser = await UserModel.findOne({username: req.body.name });
-    const existingEmail = await UserModel.findOne({username: req.body.email });
+    const existingUser = await UserModel.findOne({userName: req.body.name });
+    const existingEmail = await UserModel.findOne({userEmail: req.body.email });
     if (existingUser) {
         console.log('Username is already taken');
         return res.status(400).send({ error: 'Username is already taken' });

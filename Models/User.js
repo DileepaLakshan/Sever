@@ -4,8 +4,14 @@ const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({
     userId: String,
-    userName: String,
-    userEmail: String,
+    userName: {
+        type: String,
+        unique: true,
+    },
+    userEmail: {
+        type: String,
+        unique: true,
+    },
     password: String,
     loginStatus: Boolean,
     AdminStatus: {
@@ -13,9 +19,7 @@ const UserSchema = new mongoose.Schema({
         default: false
     },
     registerDate: Date,
-
-    
-    
+   
 })
 
 const UserModel = mongoose.model("users", UserSchema)
