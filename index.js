@@ -51,31 +51,30 @@ app.post('/user/signUp', async (req, res) => {
     
 })
 
-app.post('/users/login', async (req, res) => {
+app.post('/user/login', async (req, res) => {
 
-    const user = await UserModel.findOne({ userName: req.body.name })
-    
+    // Ensure the correct field name is being used here
+    const user = await UserModel.findOne({ userName: req.body.name });
 
-    
-    if(user == null){
-        return res.status(400).send('Cannot find user')
+    if (user == null) {
+        return res.status(400).send('Cannot find user');
     }
 
-    try{
-        if(await bcrypt.compare(req.body.password, user.password)){
-            res.send('success')
-            console.log('succes')
-        }else {
-            res.send('Not Allowed')
-            console.log('faild you cant log')
+    try {
+        if (await bcrypt.compare(req.body.password, user.password)) {
+            res.status(200).send('success');
+            console.log('success');
+        } else {
+            res.status(403).send('Not Allowed');
+            console.log('Failed: You cannot log in');
+            console.log(req.body.password);
+            console.log(user.password);
         }
+    } catch (error) {
+        console.error(error); // Log the error for debugging purposes
+        res.status(500).send('Server error');
     }
-    catch {
-        res.status(500).send()
-    }
-        
-    
-})
+});
 
 // app.get('/get', (req, res) => {
 //     TodoModel.find()
