@@ -21,35 +21,39 @@ app.get('/users', (req, res) =>{
 })
 
 app.post('/user/signUp', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
 
-    const existingUser = await UserModel.findOne({userName: req.body.name });
-    const existingEmail = await UserModel.findOne({userEmail: req.body.email });
-    if (existingUser) {
-        console.log('Username is already taken');
-        return res.status(400).send({ error: 'Username is already taken' });
-      }
+        // Check if the username already exists
+        const existingUser = await UserModel.findOne({ userName: name });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Username is already taken' });
+        }
 
-    if(existingEmail) {
-        return res.status(400).send({ error: 'email is already taken' });
-      }
-      
+        // Check if the email already exists
+        const existingEmail = await UserModel.findOne({ userEmail: email });
+        if (existingEmail) {
+            return res.status(400).json({ error: 'Email is already taken' });
+        }
 
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    console.log(req.body.name);
-    console.log(req.body.password);
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        // Create the new user
+        const newUser = await UserModel.create({
+            userName: name,
+            userEmail: email,
+            password: hashedPassword
+        });
 
-    const name = req.body.name;
-    const email = req.body.email;
-    const Password = hashedPassword;
+        // Send the created user as a response
+        return res.status(201).json(newUser);
+    } catch (err) {
+        console.error('Error during sign-up:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
-    UserModel.create({
-        userName: name,
-        userEmail: email,
-        password: Password
-    }).then(result => res.json(result)).catch(err => res.json(err))
-    
-})
 
 app.post('/users/login', async (req, res) => {
 
