@@ -56,54 +56,42 @@ app.post('/user/login', async (req, res) => {
     // Ensure the correct field name is being used here
     const user = await UserModel.findOne({ userName: req.body.name });
 
+
     if (user == null) {
         return res.status(400).send('Cannot find user');
     }
 
     try {
-        if (await bcrypt.compare(req.body.password, user.password)) {
-            res.status(200).send('success');
-            console.log('success');
-        } else {
-            res.status(403).send('Not Allowed');
-            console.log('Failed: You cannot log in');
-            console.log(req.body.password);
-            console.log(user.password);
-        }
+
+        // bcrypt.compare(req.body.password,user.password, function(err, result) {
+        //     // result == true
+        // });
+        if (await bcrypt.compare(req.body.password,user.password, function(err, result) {
+            
+            console.log(result)
+            if(result==true){
+                res.status(200).send("sucusess");
+            }
+            else{
+                res.status(400).send("Invalid password");
+            }
+        }));
+    
+    // ) {
+    //         res.status(200).send('success');
+    //         console.log('success1');
+    //     } else {
+    //         res.status(403).send('Not Allowed');
+    //         console.log('Failed: You cannot log in');
+    //         console.log(req.body.password);
+    //         console.log(user.password);
+    //     }
     } catch (error) {
         console.error(error); // Log the error for debugging purposes
         res.status(500).send('Server error');
     }
 });
 
-// app.get('/get', (req, res) => {
-//     TodoModel.find()
-//     .then(result => res.json(result))
-//     .catch(err => res.json(err))
-// })
-
-// app.put('/update/:id', (req, res) => {
-//     const {id} = req.params;
-//     TodoModel.findByIdAndUpdate({_id: id}, {done:true})
-//     .then(result => res.json(result))
-//     .catch(err => res.json(err))
-    
-// })
-
-// app.put('/delete/:id', (req, res) => {
-//     const {id} = req.params;
-//     TodoModel.findByIdAndDelete({_id: id}, {done:true})
-//     .then(result => res.json(result))
-//     .catch(err => res.json(err))
-    
-// })
-
-// app.post('/add', (req, res) => { 
-//     const task = req.body.task;
-//     TodoModel.create({
-//         task: task
-//     }).then(result => res.json(result)).catch(err => res.json(err))
-// })
 
 app.listen(3001, () => {
     console.log("Server is Running")
