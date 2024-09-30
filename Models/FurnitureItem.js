@@ -6,7 +6,7 @@ const FurnitureItemSchema = new mongoose.Schema({
     itemID: String,
     name: String,
     description : String,
-    categoryID: String,
+    category: String,
     material: String,
     dimensions : Number,
     weight : Number,

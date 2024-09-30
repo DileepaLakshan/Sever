@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const UserModel = require('./Models/User')
+const FurnitureItemModel = require('./Models/FurnitureItem')
 const bcrypt = require('bcrypt')
 
 const app = express()
@@ -80,6 +81,39 @@ app.post('/users/login', async (req, res) => {
         
     
 })
+
+
+
+//admin panel 
+
+
+app.post('/admin/addItem', (req, res) => {
+    const { name, description, price, category } = req.body;
+
+    FurnitureItemModel.create({
+        name: name,
+        description: description,
+        price: price,
+        category: category
+    })
+    .then(result => {
+        console.log(result);  // Log the result if needed
+        res.json(result);     // Send the response only once
+    })
+    .catch(err => {
+        console.error(err);   // Log the error if needed
+        res.status(500).json(err);  // Send the error response
+    });
+
+});
+
+
+app.get('/admin/showItem', (req, res) => {
+    FurnitureItemModel.find()
+    .then(result => res.json(result))
+    .catch(err => res.json(err))
+})
+
 
 // app.get('/get', (req, res) => {
 //     TodoModel.find()
