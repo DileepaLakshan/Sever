@@ -57,8 +57,37 @@ app.post('/user/signUp', async (req, res) => {
 
 
 app.post('/users/login', async (req, res) => {
+    console.log(req.body)
 
-    const user = await UserModel.findOne({ userName: req.body.name })
+    const user = await UserModel.findOne({ userEmail: req.body.email })
+    
+
+    
+    if(user == null){
+        return res.status(400).send('Cannot find user')
+    }
+
+    try{
+        if(await bcrypt.compare(req.body.password, user.password)){
+            res.send('success')
+            console.log('succes')
+        }else {
+            res.send('Not Allowed')
+            console.log('faild you cant log')
+        }
+    }
+    catch {
+        res.status(500).send()
+    }
+        
+    
+})
+
+
+
+app.post('/admin/login', async (req, res) => {
+
+    const user = await UserModel.findOne({ userEmail: req.body.email })
     
 
     
