@@ -3,16 +3,16 @@
 const mongoose = require('mongoose')
 
 const FurnitureItemSchema = new mongoose.Schema({
-    itemID: String,
+    // itemID: String,
     name: String,
     description : String,
     category: String,
-    material: String,
-    dimensions : Number,
-    weight : Number,
-    color: String,
+    // material: String,
+    // dimensions : Number,
+    // weight : Number,
+    // color: String,
     price: Number,
-    stock_quantity : Number,
+    // stock_quantity : Number,
     Image_URL : String,
 })
 
