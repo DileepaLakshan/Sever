@@ -6,9 +6,11 @@ const cors = require('cors')
 const UserModel = require('./Models/User')
 const FurnitureItemModel = require('./Models/FurnitureItem')
 const bcrypt = require('bcrypt')
+const multer = require('multer');
+const upload = multer();
 
 const app = express()
-app.use(cors())
+app.use(cors({ origin: 'http://localhost:5173' })); 
 app.use(express.json())
 
 mongoose.connect('mongodb://127.0.0.1:27017/ARFurnitue')
@@ -117,31 +119,28 @@ app.post('/admin/login', async (req, res) => {
 
 
 app.post('/admin/addItem', (req, res) => {
-    const { name, description, price, category } = req.body;
+    const { name, description, price, category} = req.body;
+    // console.log("Request Body:", req.body);
 
     FurnitureItemModel.create({
         name: name,
         description: description,
         price: price,
         category: category
+        
     })
-    .then(result => {
-        console.log(result);  // Log the result if needed
-        res.json(result);     // Send the response only once
-    })
-    .catch(err => {
-        console.error(err);   // Log the error if needed
-        res.status(500).json(err);  // Send the error response
-    });
+    .then(result => res.json({ success: true, data: result })) // Wrap result in an object with success and data
+    .catch(err => res.status(500).json({ success: false, error: err.message })); // Return error in a structured format
 
 });
 
 
 app.get('/admin/showItem', (req, res) => {
     FurnitureItemModel.find()
-    .then(result => res.json(result))
-    .catch(err => res.json(err))
-})
+        .then(result => res.json({ success: true, data: result })) // Wrap result in an object with success and data
+        .catch(err => res.status(500).json({ success: false, error: err.message })); // Return error in a structured format
+});
+
 
 
 // app.get('/get', (req, res) => {
