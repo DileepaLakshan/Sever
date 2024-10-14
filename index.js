@@ -142,6 +142,13 @@ app.get('/admin/showItem', (req, res) => {
 });
 
 
+app.get('/admin/showOrder', (req, res) => {
+    OrderListModel.find()
+        .then(result => res.json({ success: true, data: result })) // Wrap result in an object with success and data
+        .catch(err => res.status(500).json({ success: false, error: err.message })); // Return error in a structured format
+});
+
+
 
 // app.get('/get', (req, res) => {
 //     TodoModel.find()
