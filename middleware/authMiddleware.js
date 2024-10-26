@@ -32,6 +32,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
 // Admin middleware
 const admin = (req, res, next) => {
+    
     if(req.user && req.user.isAdmin){
         next();
     }else {
@@ -40,4 +41,17 @@ const admin = (req, res, next) => {
     }
 };
 
-export { protect, admin};
+const isadmin = asyncHandler(async (req, res, next) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (user && user.isAdmin) {
+        next();
+    } else {
+        res.status(401);
+        throw new Error('Not authorized as admin');
+    }
+});
+
+export { protect, admin, isadmin};
