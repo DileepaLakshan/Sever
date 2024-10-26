@@ -1,10 +1,12 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from './asyncHandler.js';
-import User from "../models/userModel.js";
+import User from "../Models/userModel.js";
 
 
 //Potect routes
 const protect = asyncHandler(async (req, res, next) => {
+
+    
 
     let token;
 
@@ -14,7 +16,9 @@ const protect = asyncHandler(async (req, res, next) => {
     if (token){
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            console.log(decoded.userId);
             req.User = await User.findById(decoded.userId).select('-password');
+            
             next();
 
         }catch (error) {

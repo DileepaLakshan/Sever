@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/asyncHandler.js';
-import User from '../models/userModel.js';
+import User from "../Models/userModel.js";
 import genrateToken from '../utils/generateToken.js';
 
 
@@ -86,7 +86,8 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+
+  const user = await User.findById(req.User._id);
 
   if(user) {
     
@@ -95,6 +96,10 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      shippingAddress: user.shippingAddress,
+
     });
   }else {
     res.status(404);
@@ -113,6 +118,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.firstName = req.body.firstName || user.firstName;
+    user.lastName = req.body.lastName || user.lastName;
+    user.shippingAddress = req.body.shippingAddress || user.shippingAddress;
   }
 
   if(req.body.password) {

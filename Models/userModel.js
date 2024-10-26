@@ -27,6 +27,23 @@ const userSchema = mongoose.Schema(
       default: true,
     },
 
+
+    firstName: {
+      type: String,
+    },
+
+    lastName: {
+      type: String,
+    },
+
+    shippingAddress: {
+      addressLine1: { type: String},
+      addressLine2: { type: String},
+      district: { type: String },
+      province: { type: String },
+      zipCode: { type: String },
+    },
+
   },
   {
     timestamps: true,
