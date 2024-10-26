@@ -15,13 +15,14 @@ const authUser = asyncHandler(async (req, res) => {
 
   if(user && (await user.matchPassword(password))) {
 
-    genrateToken(res, user._id);
+    const token = genrateToken(res, user._id);
 
     res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin
+      isAdmin: user.isAdmin,
+      token: token
     });
   } else {
     res.status(401);
