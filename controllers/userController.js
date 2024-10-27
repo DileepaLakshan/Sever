@@ -87,7 +87,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
 
-  const user = await User.findById(req.User._id);
+  const user = await User.findById(req.user._id);
 
   if(user) {
     
@@ -179,13 +179,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 
 export {
-  authUser,
-  logoutUser,
-  registerUser,
-  getUserProfile,
-  updateUserProfile,
-  getUsers,
-  deleteUser,
-  getUserById,
-  updateUser,
+  authUser, deleteUser,
+  getUserById, getUserProfile, getUsers, logoutUser,
+  registerUser, updateUser, updateUserProfile
 };

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import asyncHandler from './asyncHandler.js';
 import User from "../Models/userModel.js";
+import asyncHandler from './asyncHandler.js';
 
 
 //Potect routes
@@ -16,8 +16,8 @@ const protect = asyncHandler(async (req, res, next) => {
     if (token){
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            console.log(decoded.userId);
-            req.User = await User.findById(decoded.userId).select('-password');
+            // console.log(decoded.userId);
+            req.user = await User.findById(decoded.userId).select('-password');
             
             next();
 
@@ -58,4 +58,5 @@ const isadmin = asyncHandler(async (req, res, next) => {
     }
 });
 
-export { protect, admin, isadmin};
+export { admin, isadmin, protect };
+
