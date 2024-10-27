@@ -36,6 +36,14 @@ const userSchema = mongoose.Schema(
       type: String,
     },
 
+    contactNumber1: {
+      type: String,
+    },
+
+    contactNumber2: {
+      type: String,
+    },
+
     shippingAddress: {
       addressLine1: { type: String},
       addressLine2: { type: String},

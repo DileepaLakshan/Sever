@@ -98,6 +98,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       firstName: user.firstName,
       lastName: user.lastName,
+      contactNumber1: user.contactNumber1,
+      contactNumber2: user.contactNumber2,
       shippingAddress: user.shippingAddress,
 
     });
@@ -120,6 +122,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.firstName = req.body.firstName || user.firstName;
     user.lastName = req.body.lastName || user.lastName;
+    user.contactNumber1 = req.body.contactNumber1 || user.contactNumber1;
+    user.contactNumber2 = req.body.contactNumber2 || user.contactNumber2;
     user.shippingAddress = req.body.shippingAddress || user.shippingAddress;
   }
 
