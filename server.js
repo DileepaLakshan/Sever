@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './config/db.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-import productRoutes from './routes/productRoutes.js'
 dotenv.config()
 
 
@@ -17,9 +17,8 @@ connectDB(); // Connecct to MongoDB
 
 const app = express();
 app.use(cors({
-  origin: 'https://sprojectbackend-production.up.railway.app/api/users', // Allow only the specified origin
-  methods: 'GET,POST,PUT,DELETE', // Specify allowed methods
-  allowedHeaders: 'Content-Type,Authorization' // Specify allowed headers
+  origin: 'http://localhost:5173/', // Allow only the specified origin
+  credentials :true
 }));
 
 //Body parser middleware
