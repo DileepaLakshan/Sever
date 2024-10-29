@@ -20,24 +20,9 @@ app.use(cors({
   origin: 'http://localhost:5173',  // Your frontend origin
   credentials: true,  // Allow cookies and credentials
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],  // Allowed headers
+ 
 }));
 
-// Handle preflight OPTIONS request
-app.options('*', cors());
-
-// Set headers for CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');  // Allow your frontend origin
-  res.header('Access-Control-Allow-Credentials', 'true');  // Allow credentials like cookies
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');  // Allow HTTP methods
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');  // Allowed headers
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(204);  // Preflight response status
-  } else {
-    next();
-  }
-});
 
 // Body parser middleware
 app.use(express.json());
