@@ -26,6 +26,19 @@ app.use(cors({
 // Handle preflight OPTIONS request
 app.options('*', cors());
 
+// Set headers for CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');  // Allow your frontend origin
+  res.header('Access-Control-Allow-Credentials', 'true');  // Allow credentials like cookies
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');  // Allow HTTP methods
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');  // Allowed headers
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(204);  // Preflight response status
+  } else {
+    next();
+  }
+});
+
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
