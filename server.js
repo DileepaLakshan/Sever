@@ -9,16 +9,18 @@ import userRoutes from './routes/userRoutes.js';
 dotenv.config()
 
 
-
 const port =process.env.PORT || 5000;
 
 
 connectDB(); // Connecct to MongoDB
 
 const app = express();
+
+
 app.use(cors({
-  origin: 'http://localhost:5173/', // Allow only the specified origin
-  credentials :true
+  origin: 'http://localhost:5173', // Allow specific origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+  credentials: true, // Allow cookies if needed
 }));
 
 //Body parser middleware
@@ -39,3 +41,6 @@ app.use('/api/products', productRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
+
+
+app.listen(port, () => console.log(`Server running on port ${port}`));
