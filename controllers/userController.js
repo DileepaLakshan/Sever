@@ -40,7 +40,7 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  console.log('hiiii');
+  // console.log('hiiii');
 
   const userExist = await User.findOne( {email} );
 
@@ -88,10 +88,11 @@ const logoutUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-
+ 
   const user = await User.findById(req.user._id);
 
   if(user) {
+
     
     res.status(200).json({
       _id: user._id,
@@ -185,3 +186,4 @@ export {
   getUserById, getUserProfile, getUsers, logoutUser,
   registerUser, updateUser, updateUserProfile
 };
+

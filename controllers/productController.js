@@ -13,7 +13,7 @@ const addProduct = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
 
   
- //   console.log(user);
+   console.log(name);
 
     const product = await Product.create({
       user,
@@ -70,4 +70,5 @@ const getProductById = asyncHandler(async (req, res) => {
 });
 
 
-export { addProduct, getProducts, getProductById };
+export { addProduct, getProductById, getProducts };
+

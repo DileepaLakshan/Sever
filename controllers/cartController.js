@@ -19,7 +19,7 @@ const getCart = asyncHandler(async (req, res) => {
 // @route   POST /api/cart
 // @access  Private
 const addItemToCart = asyncHandler(async (req, res) => {
-  const { productId, quantity, price } = req.body;
+  const { productId, quantity, price, name } = req.body;
 
   const user = await User.findById(req.user._id);
 
@@ -31,7 +31,7 @@ const addItemToCart = asyncHandler(async (req, res) => {
       existingItem.quantity += quantity;
     } else {
       // Add new item to the cart
-      user.cart.push({ productId, quantity, price });
+      user.cart.push({ productId, quantity, price,name });
     }
 
     await user.save();
@@ -100,9 +100,6 @@ const clearCart = asyncHandler(async (req, res) => {
 });
 
 export {
-  getCart,
-  addItemToCart,
-  updateCartItem,
-  removeItemFromCart,
-  clearCart,
+  addItemToCart, clearCart, getCart, removeItemFromCart, updateCartItem
 };
+

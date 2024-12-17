@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema(
   {
@@ -32,6 +32,11 @@ const userSchema = mongoose.Schema(
         },
         price: {
           type: Number,
+        },
+        name: {
+          type: String,
+          required: true,
+      
         },
       },
     ],
