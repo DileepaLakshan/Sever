@@ -19,7 +19,7 @@ const getCart = asyncHandler(async (req, res) => {
 // @route   POST /api/cart
 // @access  Private
 const addItemToCart = asyncHandler(async (req, res) => {
-  const { productId, quantity, price, name } = req.body;
+  const { productId, quantity, price, name, image } = req.body;
 
   const user = await User.findById(req.user._id);
 
@@ -31,7 +31,7 @@ const addItemToCart = asyncHandler(async (req, res) => {
       existingItem.quantity += quantity;
     } else {
       // Add new item to the cart
-      user.cart.push({ productId, quantity, price,name });
+      user.cart.push({ productId, quantity, price,name,image });
     }
 
     await user.save();
