@@ -1,7 +1,8 @@
 import asyncHandler from '../middleware/asyncHandler.js';
+// import Product from '../models/productmodel.js';
+// import User from "../Models/userModel.js";
 import Product from '../models/productmodel.js';
-import User from "../Models/userModel.js";
-
+import User from '../models/usermodel.js';
 
 // @desc    add a new product
 // @route   POST /api/addProduct
