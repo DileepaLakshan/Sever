@@ -1,8 +1,8 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 // import Product from '../models/productmodel.js';
 // import User from "../Models/userModel.js";
-import Product from '../models/productmodel.js';
-import User from '../models/usermodel.js';
+// import Product from '../models/productmodel.js';
+// import User from '../models/usermodel.js';
 
 // @desc    add a new product
 // @route   POST /api/addProduct
@@ -11,33 +11,33 @@ const addProduct = asyncHandler(async (req, res) => {
     const { name, image, category, description, price  } = req.body;
 
   
-    const user = await User.findById(req.user._id);
+  //   const user = await User.findById(req.user._id);
 
   
-   console.log(name);
+  //  console.log(name);
 
-    const product = await Product.create({
-      user,
-      name,
-      image,
-      category,
-      description,
-      price
-    });
+  //   const product = await Product.create({
+  //     user,
+  //     name,
+  //     image,
+  //     category,
+  //     description,
+  //     price
+  //   });
   
-    if(product) {
-      res.status(201).json({
-        _id: product._id,
-        name: product.name,
-        image: product.image,
-        category: product.category,
-        description: product.description,
-        price: product.price,
-      });
-    }else {
-      res.status(400);
-      throw new Error('Invalid product data');
-    }
+  //   if(product) {
+  //     res.status(201).json({
+  //       _id: product._id,
+  //       name: product.name,
+  //       image: product.image,
+  //       category: product.category,
+  //       description: product.description,
+  //       price: product.price,
+  //     });
+  //   }else {
+  //     res.status(400);
+  //     throw new Error('Invalid product data');
+  //   }
   });
 
 
