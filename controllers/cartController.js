@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/asyncHandler.js';
-import User from '../Models/userModel.js'; // Adjust the path based on your project structure
+import User from '../models/userModel.js'; // Adjust the path based on your project structure
 
 // @desc    Get user cart
 // @route   GET /api/cart
