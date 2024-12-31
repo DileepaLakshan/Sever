@@ -9,7 +9,7 @@ import {
   registerUser,
   updateUser,
   updateUserProfile,
-} from '../controllers/userController.js';
+} from '../controllers/usercontroller.js';
 import { admin, protect, isadmin } from '../middleware/authMiddleware.js';
 
 

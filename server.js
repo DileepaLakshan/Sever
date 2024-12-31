@@ -4,10 +4,10 @@ import dotenv from 'dotenv';
 import express from 'express';
 import connectDB from './config/db.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
-import productRoutes from './routes/productRoutes.js';
+import productRoutes from './routes/productroutes.js';
 import userRoutes from './routes/userRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';
-import cartRoutes from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderroutes.js';
+import cartRoutes from './routes/cartroutes.js';
 dotenv.config();
 
 const app = express();
