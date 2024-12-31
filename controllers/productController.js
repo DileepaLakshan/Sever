@@ -1,5 +1,5 @@
 import asyncHandler from '../middleware/asyncHandler.js';
-import Product from '../Models/productmodel.js';
+import Product from '../models/productmodel.js';
 import User from "../Models/userModel.js";
 
 
