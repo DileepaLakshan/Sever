@@ -3,4 +3,3 @@ node_modules
 *.log
 .env
 .rwxr-xr-x
-.vercel
