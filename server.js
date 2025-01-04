@@ -45,5 +45,6 @@ app.use('/api/cart', cartRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
+export default app;
 
 //app.listen(port, () => console.log(`Server running on port ${port}`));
