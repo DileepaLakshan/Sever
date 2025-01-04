@@ -1,6 +1,6 @@
 import asyncHandler from '../middleware/asyncHandler.js';
-import User from "../models/usermodel.js";
-import genrateToken from '../utils/generatetoken.js';
+import User from "../Models/userModel.js";
+import genrateToken from '../utils/generateToken.js';
 
 
 
@@ -8,6 +8,8 @@ import genrateToken from '../utils/generatetoken.js';
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
+
+  console.log("hiii chooty");
   
   const { email, password } = req.body;
 

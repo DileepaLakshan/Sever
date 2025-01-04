@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/usermodel.js";
+import User from "../Models/userModel.js";
 import asyncHandler from './asyncHandler.js';
 
 
@@ -13,15 +13,15 @@ const protect = asyncHandler(async (req, res, next) => {
     //Read the JWT from cookie
     token = req.cookies.jwt;
 
-    if (token){
+    if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             // console.log(decoded.userId);
             req.user = await User.findById(decoded.userId).select('-password');
-            
+
             next();
 
-        }catch (error) {
+        } catch (error) {
             console.log(error);
             res.status(401);
             throw new Error('Not authorized, no token');
@@ -36,17 +36,20 @@ const protect = asyncHandler(async (req, res, next) => {
 
 // Admin middleware
 const admin = (req, res, next) => {
-    
-    if(req.user && req.user.isAdmin){
+
+    if (req.user && req.user.isAdmin) {
         next();
-    }else {
+    } else {
         res.status(401);
         throw new Error('Not authorized as admin');
     }
 };
 
 const isadmin = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
     const { email, password } = req.body;
+
+
 
     const user = await User.findOne({ email });
 
@@ -54,6 +57,7 @@ const isadmin = asyncHandler(async (req, res, next) => {
         next();
     } else {
         res.status(401);
+        console.log("hiii hidfsdwf");
         throw new Error('Not authorized as admin');
     }
 });

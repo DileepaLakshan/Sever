@@ -1,43 +1,45 @@
 import asyncHandler from '../middleware/asyncHandler.js';
-import Product from '../models/productmodel.js';
-import User from "../models/usermodel.js";
+import Product from '../Models/productModel.js';
+import User from "../Models/userModel.js";
 
 
 // @desc    add a new product
 // @route   POST /api/addProduct
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
-    const { name, image, category, description, price  } = req.body;
 
-  
-    const user = await User.findById(req.user._id);
+  console.log(req.body);
+  const { name, image, category, description, price } = req.body;
 
-  
-   console.log(name);
 
-    const product = await Product.create({
-      user,
-      name,
-      image,
-      category,
-      description,
-      price
-    });
-  
-    if(product) {
-      res.status(201).json({
-        _id: product._id,
-        name: product.name,
-        image: product.image,
-        category: product.category,
-        description: product.description,
-        price: product.price,
-      });
-    }else {
-      res.status(400);
-      throw new Error('Invalid product data');
-    }
+  const user = await User.findById(req.user._id);
+  console.log(user);
+
+  const product = await Product.create({
+    user,
+    name,
+    image,
+    category,
+    description,
+    price
   });
+
+  console.log(product);
+
+  if (product) {
+    res.status(201).json({
+      _id: product._id,
+      name: product.name,
+      image: product.image,
+      category: product.category,
+      description: product.description,
+      price: product.price,
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid product data');
+  }
+});
 
 
 
@@ -45,11 +47,10 @@ const addProduct = asyncHandler(async (req, res) => {
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-
   const products = await Product.find({});
-  res.json(products);
-
+  res.status(200).json(products); // Explicitly set status 200
 });
+
 
 
 
@@ -113,11 +114,11 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-      await product.deleteOne();
-      res.json({ message: 'Product removed' });
+    await product.deleteOne();
+    res.json({ message: 'Product removed' });
   } else {
-      res.status(404);
-      throw new Error('Product not found');
+    res.status(404);
+    throw new Error('Product not found');
   }
 });
 
