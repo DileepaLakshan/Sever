@@ -7,27 +7,29 @@ import User from "../Models/userModel.js";
 // @route   POST /api/addProduct
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
-
   console.log(req.body);
   const { name, image, category, description, price } = req.body;
-
 
   const user = await User.findById(req.user._id);
   console.log(user);
 
+  // Create a new product
   const product = await Product.create({
     user,
     name,
     image,
     category,
     description,
-    price
+    price,
   });
 
   console.log(product);
 
   if (product) {
+    // Send success response with additional 'success' field
     res.status(201).json({
+      success: true, // Include the 'success' field for frontend validation
+      message: "Product added successfully", // Success message
       _id: product._id,
       name: product.name,
       image: product.image,
@@ -36,10 +38,13 @@ const addProduct = asyncHandler(async (req, res) => {
       price: product.price,
     });
   } else {
-    res.status(400);
-    throw new Error('Invalid product data');
+    res.status(400).json({
+      success: false, // Send success as false in case of failure
+      message: 'Invalid product data', // Failure message
+    });
   }
 });
+
 
 
 
