@@ -8,7 +8,7 @@ import User from "../Models/userModel.js";
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const { name, image, category, description, price } = req.body;
+  const { name, image, category, description, price, modelImageUrl } = req.body;
 
   const user = await User.findById(req.user._id);
   console.log(user);
@@ -21,6 +21,7 @@ const addProduct = asyncHandler(async (req, res) => {
     category,
     description,
     price,
+    modelImageUrl
   });
 
   console.log(product);
@@ -36,6 +37,7 @@ const addProduct = asyncHandler(async (req, res) => {
       category: product.category,
       description: product.description,
       price: product.price,
+      modelImageUrl: product.modelImageUrl
     });
   } else {
     res.status(400).json({

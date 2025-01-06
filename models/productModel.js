@@ -33,6 +33,11 @@ const productSchema = mongoose.Schema(
 
     image: {
       type: String,
+      required: true,
+    },
+
+    modelImageUrl: {
+      type: String,
     },
 
     price: {
