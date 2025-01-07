@@ -10,11 +10,6 @@ const addProduct = asyncHandler(async (req, res) => {
   console.log(req.body);
   const { name, image, category, description, price } = req.body;
 
-  const imageUrl = await cloudinary.uploader.upload(image, {
-    folder: products,
-  })
-
-
   const user = await User.findById(req.user._id);
   console.log(user);
 
@@ -27,10 +22,14 @@ const addProduct = asyncHandler(async (req, res) => {
     description,
     price,
 <<<<<<< HEAD
+<<<<<<< HEAD
     modelImageUrl,
     imageUrl
 =======
 >>>>>>> parent of 96acfff (3d model connect with firebase in backend)
+=======
+    modelImageUrl
+>>>>>>> parent of abe7956 (add clodinary)
   });
 
   console.log(product);
@@ -84,8 +83,6 @@ const getProductById = asyncHandler(async (req, res) => {
   throw new Error('Resource not found');
 
 });
-
-
 
 // @desc    Update a product
 // @route   PUT /api/products/:id

@@ -9,14 +9,13 @@ import genrateToken from '../utils/generateToken.js';
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
 
+  console.log("hiii chooty");
   
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
   if(user && (await user.matchPassword(password))) {
-
-    console.log(user._id);
 
     const token = genrateToken(res, user._id);
 
