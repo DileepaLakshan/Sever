@@ -8,46 +8,37 @@ import asyncHandler from '../middleware/asyncHandler.js';
 // @route   POST /api/addProduct
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
-  console.log(req.body);
-  const { name, image, category, description, price, modelImageUrl } = req.body;
+    const { name, image, category, description, price  } = req.body;
 
-  const user = await User.findById(req.user._id);
-  console.log(user);
+  
+  //   const user = await User.findById(req.user._id);
 
-  // Create a new product
-  const product = await Product.create({
-    user,
-    name,
-    image,
-    category,
-    description,
-    price,
-    modelImageUrl,
+  
+  //  console.log(name);
+
+  //   const product = await Product.create({
+  //     user,
+  //     name,
+  //     image,
+  //     category,
+  //     description,
+  //     price
+  //   });
+  
+  //   if(product) {
+  //     res.status(201).json({
+  //       _id: product._id,
+  //       name: product.name,
+  //       image: product.image,
+  //       category: product.category,
+  //       description: product.description,
+  //       price: product.price,
+  //     });
+  //   }else {
+  //     res.status(400);
+  //     throw new Error('Invalid product data');
+  //   }
   });
-
-  console.log(product);
-
-  if (product) {
-    // Send success response with additional 'success' field
-    res.status(201).json({
-      success: true, // Include the 'success' field for frontend validation
-      message: "Product added successfully", // Success message
-      _id: product._id,
-      name: product.name,
-      image: product.image,
-      category: product.category,
-      description: product.description,
-      price: product.price,
-      modelImageUrl: product.modelImageUrl
-    });
-  } else {
-    res.status(400).json({
-      success: false, // Send success as false in case of failure
-      message: 'Invalid product data', // Failure message
-    });
-  }
-});
-
 
 
 
@@ -55,10 +46,11 @@ const addProduct = asyncHandler(async (req, res) => {
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.status(200).json(products); // Explicitly set status 200
-});
 
+  const products = await Product.find({});
+  res.json(products);
+
+});
 
 
 
@@ -122,11 +114,11 @@ const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    await product.deleteOne();
-    res.json({ message: 'Product removed' });
+      await product.deleteOne();
+      res.json({ message: 'Product removed' });
   } else {
-    res.status(404);
-    throw new Error('Product not found');
+      res.status(404);
+      throw new Error('Product not found');
   }
 });
 
