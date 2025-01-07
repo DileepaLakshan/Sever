@@ -8,7 +8,7 @@ import User from "../Models/userModel.js";
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
   console.log(req.body);
-  const { name, image, category, description, price, modelImageUrl } = req.body;
+  const { name, image, category, description, price } = req.body;
 
   const imageUrl = await cloudinary.uploader.upload(image, {
     folder: products,
@@ -26,8 +26,11 @@ const addProduct = asyncHandler(async (req, res) => {
     category,
     description,
     price,
+<<<<<<< HEAD
     modelImageUrl,
     imageUrl
+=======
+>>>>>>> parent of 96acfff (3d model connect with firebase in backend)
   });
 
   console.log(product);
@@ -43,7 +46,6 @@ const addProduct = asyncHandler(async (req, res) => {
       category: product.category,
       description: product.description,
       price: product.price,
-      modelImageUrl: product.modelImageUrl
     });
   } else {
     res.status(400).json({
