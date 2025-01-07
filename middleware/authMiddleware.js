@@ -13,11 +13,13 @@ const protect = asyncHandler(async (req, res, next) => {
     //Read the JWT from cookie
     token = req.cookies.jwt;
 
+
     if (token) {
         try {
+            console.log(token);
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            // console.log(decoded.userId);
             req.user = await User.findById(decoded.userId).select('-password');
+        
 
             next();
 
@@ -36,6 +38,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
 // Admin middleware
 const admin = (req, res, next) => {
+
 
     if (req.user && req.user.isAdmin) {
         next();

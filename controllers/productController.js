@@ -10,6 +10,11 @@ const addProduct = asyncHandler(async (req, res) => {
   console.log(req.body);
   const { name, image, category, description, price, modelImageUrl } = req.body;
 
+  const imageUrl = await cloudinary.uploader.upload(image, {
+    folder: products,
+  })
+
+
   const user = await User.findById(req.user._id);
   console.log(user);
 
@@ -21,7 +26,8 @@ const addProduct = asyncHandler(async (req, res) => {
     category,
     description,
     price,
-    modelImageUrl
+    modelImageUrl,
+    imageUrl
   });
 
   console.log(product);
@@ -76,6 +82,8 @@ const getProductById = asyncHandler(async (req, res) => {
   throw new Error('Resource not found');
 
 });
+
+
 
 // @desc    Update a product
 // @route   PUT /api/products/:id
