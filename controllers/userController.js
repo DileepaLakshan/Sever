@@ -8,6 +8,8 @@ import genrateToken from '../utils/generateToken.js';
 // @route   POST /api/users/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
+
+  console.log("hiii chooty");
   
   const { email, password } = req.body;
 
