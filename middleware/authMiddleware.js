@@ -36,8 +36,13 @@ const protect = asyncHandler(async (req, res, next) => {
 
 // Admin middleware
 const admin = (req, res, next) => {
+<<<<<<< Updated upstream
     
     if(req.user && req.user.isAdmin){
+=======
+    // console.log(req.user);
+    if (req.user && req.user.isAdmin) {
+>>>>>>> Stashed changes
         next();
     }else {
         res.status(401);

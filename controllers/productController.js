@@ -7,7 +7,12 @@ import User from "../Models/userModel.js";
 // @route   POST /api/addProduct
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
+<<<<<<< Updated upstream
     const { name, image, category, description, price  } = req.body;
+=======
+  // console.log(req.body);
+  const { name, image, category, description, price, modelImageUrl } = req.body;
+>>>>>>> Stashed changes
 
   
     const user = await User.findById(req.user._id);
@@ -39,6 +44,33 @@ const addProduct = asyncHandler(async (req, res) => {
     }
   });
 
+<<<<<<< Updated upstream
+=======
+  // console.log(product);
+
+  if (product) {
+    // Send success response with additional 'success' field
+    res.status(201).json({
+      success: true, // Include the 'success' field for frontend validation
+      message: "Product added successfully", // Success message
+      _id: product._id,
+      name: product.name,
+      image: product.image,
+      category: product.category,
+      description: product.description,
+      price: product.price,
+      modelImageUrl: product.modelImageUrl
+    });
+  } else {
+    res.status(400).json({
+      success: false, // Send success as false in case of failure
+      message: 'Invalid product data', // Failure message
+    });
+  }
+});
+
+
+>>>>>>> Stashed changes
 
 
 // @desc    Fetch all products
