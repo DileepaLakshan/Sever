@@ -7,7 +7,7 @@ import User from "../Models/userModel.js";
 // @route   POST /api/addProduct
 // @access  Public
 const addProduct = asyncHandler(async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { name, image, category, description, price, modelImageUrl } = req.body;
 
   const user = await User.findById(req.user._id);
@@ -24,7 +24,7 @@ const addProduct = asyncHandler(async (req, res) => {
     modelImageUrl
   });
 
-  console.log(product);
+  // console.log(product);
 
   if (product) {
     // Send success response with additional 'success' field
